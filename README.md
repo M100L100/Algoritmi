@@ -114,7 +114,55 @@ return 0;
 }
 6. Se dă un număr natural n. Să se determine numărul maxim care se poate obține din n eliminând exact o cifră. Cifrele rămase nu-și pot schimba ordinea.
 
-???
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+    int n,max=-1,n2,r;
+
+    cin>>n;
+    n2=n;//va trebui sa-i reatribuim valoarea initiala lui n dupa ce eliminam cate o cifra.
+    int copn=n;//ca un numar de incercari, va reprezenta de cate ori sa facem while-ul de jos.
+
+    int i=1;
+    copn/=10;
+
+    
+    //o sa facem un caz special,pentru cand eliminam prima cifra;
+    n=n/10;
+    cout<<n<<" ";
+    if(max<n)
+        n=max;
+    n=n2;
+
+    while(copn)
+    { 
+        int putere=pow(10,i);
+        r=n%putere;//in r mentinem ce avem in dreapta
+        n=n/pow(10,i+1);//eliminam ultima cifra
+
+        n*=pow(10,i);//punem zerouri sa punem partea dreapta stocata in r inapoi in n (fara o cifra,astfel eliminand-o)
+        n+=r;//adaugam partea dreapta,fara o cifra eliminata
+
+       if(max<n)
+        max=n;
+
+         //eu am sa le si afisez pe fiecare in parte
+         cout<<n<<" ";
+
+        n=n2;//restauram n-ul , iar pe viitor eliminam alta cifra;
+
+        i++;
+        copn=copn/10;
+
+       
+    }
+    cout<<"maximul este";
+    cout<<max;
+    return 0;
+}
 7.Se citesc perechi de numere naturale până la citirea a două valori nule. Să se determine câte dintre perechi încep cu aceeași cifră.
 #include <bits/stdc++.h>
 using namespace std;
